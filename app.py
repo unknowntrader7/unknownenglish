@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, send_from_directory
+from flask import Flask, render_template, request, jsonify, send_from_directory
 from dotenv import load_dotenv
 import os
 import modules.papago_api as papago_api
@@ -11,7 +11,7 @@ app = Flask(__name__, static_folder='static')
 
 @app.route('/')
 def index():
-    return send_from_directory('static', 'index.html')
+    return rende_template('index.html')
 
 @app.route('/translate', methods=['POST'])
 def translate():

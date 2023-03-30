@@ -1,19 +1,40 @@
+import openai_secret_manager
 import openai
-import os
 from dotenv import load_dotenv
+import os
 
 load_dotenv()
 
-openai.api_key = os.getenv("OPENAI_API_KEY")
+# Load OpenAI API key from environment variable or secrets manager
+if "openai" in os.environ:
+    api_key = os.environ["openai"]
+else:
+    api_key = openai_secret_manager.get_secret("openai")["api_key"]
 
-def get_chatgpt_response(prompt):
-    model_engine = "text-davinci-002"
+# Initialize OpenAI API client
+openai.api_key = api_key
+
+
+def generate_answer(question):
+    """
+    Generate answer from the given question using GPT-3 model.
+
+    Args:
+        question (str): Input question string.
+
+    Returns:
+        str: Generated answer string.
+    """
+    prompt = f"Answer the following question:\nQ: {question}\nA:"
     response = openai.Completion.create(
-        engine=model_engine,
+        engine="text-davinci-002",
         prompt=prompt,
+        temperature=0.7,
         max_tokens=1024,
-        n=1,
+        n = 1,
         stop=None,
-        temperature=0.5,
+        frequency_penalty=0,
+        presence_penalty=0
     )
-    return response.choices[0].text.strip()
+    answer = response.choices[0].text.strip()
+    return answer

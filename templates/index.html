@@ -3,24 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unknown English</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>한글 GPT-4</title>
+    <link rel="stylesheet" href="styles.css"> <!-- 스타일시트 링크 추가 -->
 </head>
 <body>
-    <div class="chat-container">
-        <div class="chat-header">
-            <h1>Unknown English</h1>
-        </div>
-        <div class="chat-history" id="chat-history">
-        </div>
-        <div class="chat-message">
-            <form action="" method="post" id="message-form">
-                <input type="text" name="message" id="message" placeholder="Type message here...">
-                <button type="submit" class="send-btn">Send</button>
-            </form>
-        </div>
-    </div>
-    <audio id="audio" src=""></audio>
-    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+    <h1>한글 GPT-4</h1>
+    <form id="gpt-form" method="POST">
+        <label for="prompt">질문:</label>
+        <input type="text" id="prompt" name="prompt" required>
+        <button type="submit">제출</button>
+    </form>
+    <div id="response"></div>
+    <script>
+        document.getElementById("gpt-form").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const prompt = document.getElementById("prompt").value;
+            const responseDiv = document.getElementById("response");
+            responseDiv.innerText = "답변 생성 중...";
+            const response = await fetch("/", {
+                method: "POST",
+                body: new FormData(e.target),
+            });
+            const data = await response.json();
+            responseDiv.innerText = data.response;
+        });
+    </script>
 </body>
 </html>

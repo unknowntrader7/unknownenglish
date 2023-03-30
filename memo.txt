@@ -1,0 +1,23 @@
+unknownenglish/
+│   app.py
+│   .env
+│   config.py
+│   requirements.txt
+│
+└───modules/
+│   │   chatgpt_api.py
+│   │   papago_api.py
+│   │   polly_api.py
+│
+└───static/
+│   ├───css/
+│   │   │   styles.css
+│   │
+│   ├───js/
+│   │   │   script.js
+│
+└───templates/
+    │   index.html
+    │   chat.html
+    │   synthesize.html
+    │   translate.html

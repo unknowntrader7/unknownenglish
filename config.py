@@ -1,31 +1,8 @@
-import os
-from dotenv import load_dotenv
-
-load_dotenv()
-
 class Config:
-    DEBUG = False
-    TESTING = False
-    CSRF_ENABLED = True
-    SECRET_KEY = os.getenv('SECRET_KEY')
-    PAPAGO_CLIENT_ID = os.getenv('PAPAGO_CLIENT_ID')
-    PAPAGO_CLIENT_SECRET = os.getenv('PAPAGO_CLIENT_SECRET')
-    CHATGPT_API_KEY = os.getenv('CHATGPT_API_KEY')
-    AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
-    AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
-    AWS_REGION = os.getenv('AWS_REGION')
-    AWS_POLLY_VOICE_ID = os.getenv('AWS_POLLY_VOICE_ID')
-
-class ProductionConfig(Config):
-    DEBUG = False
-
-class StagingConfig(Config):
-    DEVELOPMENT = True
-    DEBUG = True
-
-class DevelopmentConfig(Config):
-    DEVELOPMENT = True
-    DEBUG = True
-
-class TestingConfig(Config):
-    TESTING = True
+    API_KEY = "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"
+    PAPAGO_CLIENT_ID = "DAI9NzFK1beDKxqJTLIz"
+    PAPAGO_CLIENT_SECRET = "cyG2F_xFaN"
+    PAPAGO_API_URL = "https://openapi.naver.com/v1/papago/n2mt"
+    POLLY_ACCESS_KEY = "AKIAVIFGU5D7GAJJJWVP"
+    POLLY_SECRET_KEY = "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"
+    POLLY_REGION = "ap-northeast-2"

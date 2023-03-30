@@ -1,17 +1,17 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 from dotenv import load_dotenv
 import os
-import papago_api
-import chatgpt_api
-import polly_api
+import modules.papago_api as papago_api
+import modules.chatgpt_api as chatgpt_api
+import modules.polly_api as polly_api
 
 load_dotenv()
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static')
 
 @app.route('/')
 def index():
-    return app.send_static_file('index.html')
+    return send_from_directory('static', 'index.html')
 
 @app.route('/translate', methods=['POST'])
 def translate():
@@ -33,4 +33,3 @@ def synthesize():
 
 if __name__ == '__main__':
     app.run(debug=True)
-    

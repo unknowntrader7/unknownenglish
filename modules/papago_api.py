@@ -1,20 +1,27 @@
-import requests
+import aiohttp
 import os
+from dotenv import load_dotenv
 
-NAVER_CLIENT_ID = os.getenv("NAVER_CLIENT_ID")
-NAVER_CLIENT_SECRET = os.getenv("NAVER_CLIENT_SECRET")
+load_dotenv()
 
-def translate_text(text, source_lang='ko', target_lang='en'):
-    url = "https://openapi.naver.com/v1/papago/n2mt"
+async def translate(text):
+    client_id = os.getenv('PAPAGO_CLIENT_ID')
+    client_secret = os.getenv('PAPAGO_CLIENT_SECRET')
+
+    url = 'https://naveropenapi.apigw.ntruss.com/nmt/v1/translation'
     headers = {
-        "X-Naver-Client-Id": NAVER_CLIENT_ID,
-        "X-Naver-Client-Secret": NAVER_CLIENT_SECRET
+        'X-Naver-Client-Id': client_id,
+        'X-Naver-Client-Secret': client_secret
     }
     data = {
-        "source": source_lang,
-        "target": target_lang,
-        "text": text
+        'source': 'en',
+        'target': 'ko',
+        'text': text
     }
-    response = requests.post(url, headers=headers, data=data)
-    translated_text = response.json()["message"]["result"]["translatedText"]
+
+    async with aiohttp.ClientSession() as session:
+        async with session.post(url, headers=headers, data=data) as resp:
+            response = await resp.json()
+
+    translated_text = response['message']['result']['translatedText']
     return translated_text

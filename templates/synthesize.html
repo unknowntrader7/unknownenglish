@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Unknown English - Speech Synthesis</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Unknown English</h1>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+                <li><a href="{{ url_for('translate_page') }}">Translate</a></li>
+                <li><a href="{{ url_for('chat_page') }}">Chat</a></li>
+                <li><a href="{{ url_for('synthesize_page') }}">Speech Synthesis</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Speech Synthesis</h2>
+        <form id="synthesize-form">
+            <label for="synthesize-input">Input Text:</label>
+            <textarea id="synthesize-input" name="text"></textarea>
+            <button type="submit">Synthesize</button>
+        </form>
+        <audio id="audio-player" controls></audio>
+    </main>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

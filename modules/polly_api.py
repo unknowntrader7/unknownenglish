@@ -1,23 +1,23 @@
 import boto3
 import os
-from contextlib import closing
+from dotenv import load_dotenv
 
-ACCESS_KEY = os.getenv("ACCESS_KEY")
-SECRET_ACCESS_KEY = os.getenv("SECRET_ACCESS_KEY")
+load_dotenv()
 
-polly_client = boto3.Session(
-    aws_access_key_id=ACCESS_KEY,
-    aws_secret_access_key=SECRET_ACCESS_KEY,
-    region_name='us-west-2'
-).client('polly')
-
-def text_to_speech(text):
-    response = polly_client.synthesize_speech(
+def synthesize_speech(text):
+    polly = boto3.client('polly')
+    response = polly.synthesize_speech(
         Text=text,
         OutputFormat='mp3',
         VoiceId='Joanna'
     )
 
-    with closing(response['AudioStream']) as stream:
-        with open('output.mp3', 'wb') as file:
-            file.write(stream.read())
+    audio_stream = response['AudioStream'].read()
+
+    s3 = boto3.resource('s3')
+    bucket_name = os.getenv('AWS_S3_BUCKET_NAME')
+    object_name = f'{text}.mp3'
+    s3.Object(bucket_name, object_name).put(Body=audio_stream)
+
+    audio_url = f'https://{bucket_name}.s3.amazonaws.com/{object_name}'
+    return audio_url

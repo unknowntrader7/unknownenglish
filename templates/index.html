@@ -1,20 +1,53 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ChatGPT 채팅 앱</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <meta charset="UTF-8">
+    <title>Unknown English</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-  <div class="container">
-    <h1>ChatGPT 채팅 앱</h1>
-    <div id="chat-container" class="chat-container"></div>
-    <div class="input-area">
-      <input id="input-text" type="text" placeholder="메시지를 입력하세요...">
-      <button id="send-button">전송</button>
-    </div>
-  </div>
-  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <header>
+        <h1>Unknown English</h1>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+                <li><a href="{{ url_for('translate_page') }}">Translate</a></li>
+                <li><a href="{{ url_for('chat_page') }}">Chat</a></li>
+                <li><a href="{{ url_for('synthesize_page') }}">Speech Synthesis</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Translate</h2>
+        <form id="translate-form">
+            <label for="source-lang">Source Language:</label>
+            <select id="source-lang" name="source-lang">
+                <option value="en">English</option>
+            </select>
+            <label for="target-lang">Target Language:</label>
+            <select id="target-lang" name="target-lang">
+                <option value="ko">Korean</option>
+            </select>
+            <label for="translate-input">Input Text:</label>
+            <textarea id="translate-input" name="text"></textarea>
+            <button type="submit">Translate</button>
+        </form>
+
+        <div id="translate-output"></div>
+
+        <hr>
+
+        <h2>Chat</h2>
+        <form id="chat-form">
+            <label for="chat-input">Your Message:</label>
+            <input type="text" id="chat-input" name="text">
+            <button type="submit">Send</button>
+        </form>
+
+        <div id="chat-output"></div>
+    </main>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>

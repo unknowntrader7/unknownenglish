@@ -1,9 +1,9 @@
 import sys
 import os
 from flask import Flask, render_template, request
-from modules.papago import translate
-from modules.chatGPT import generate_answer
-from modules.polly import synthesize_speech
+from modules.papago_api import translate
+from modules.chatgpt_api import generate_answer
+from modules.polly_api import synthesize_speech
 
 app = Flask(__name__)
 

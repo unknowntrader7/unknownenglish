@@ -4,29 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>한글 GPT-4</title>
-    <link rel="stylesheet" href="styles.css"> <!-- 스타일시트 링크 추가 -->
+    <link rel="stylesheet" href="/static/css/styles.css">
 </head>
 <body>
-    <h1>한글 GPT-4</h1>
-    <form id="gpt-form" method="POST">
-        <label for="prompt">질문:</label>
-        <input type="text" id="prompt" name="prompt" required>
-        <button type="submit">제출</button>
-    </form>
-    <div id="response"></div>
-    <script>
-        document.getElementById("gpt-form").addEventListener("submit", async (e) => {
-            e.preventDefault();
-            const prompt = document.getElementById("prompt").value;
-            const responseDiv = document.getElementById("response");
-            responseDiv.innerText = "답변 생성 중...";
-            const response = await fetch("/", {
-                method: "POST",
-                body: new FormData(e.target),
-            });
-            const data = await response.json();
-            responseDiv.innerText = data.response;
-        });
-    </script>
+    <div class="chat-container">
+        <h1>한글 GPT-4</h1>
+        <div class="chat-box">
+            <div class="messages" id="messages"></div>
+            <form id="gpt-form" method="POST" class="input-area">
+                <input type="text" id="prompt" name="prompt" placeholder="질문을 입력하세요..." required>
+                <button type="submit">제출</button>
+            </form>
+        </div>
+    </div>
+    <script src="/static/js/script.js"></script>
 </body>
 </html>
